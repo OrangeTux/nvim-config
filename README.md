@@ -32,5 +32,5 @@ Key combinations | action
 
 ### Screenshots
 
-![auto complete using cmp](nvim/sreenshots/auto-complete.png)
-![Find symbol](nvim/sreenshots/find-symbol-in-workspace.png)
+![auto complete using cmp](nvim/screenshots/auto-complete.png)
+![Find symbol](nvim/screenshots/find-symbol-in-buffer.png)
