@@ -70,6 +70,16 @@ vim.keymap.set('n', '<Leader>fg', function() require('telescope.builtin').live_g
 vim.keymap.set('n', 'z=',
 	function() require('telescope.builtin').spell_suggest(require('telescope.themes').get_cursor({})) end)
 
+------
+-- Diagnostics
+-----
+-- Get the previous diagnostic closest to the cursor_position.
+--nnoremap <silent> [g    <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
+vim.keymap.set('n', '[g', function() vim.diagnostic.get_prev() end)
+-- Get the next diagnostic closest to the cursor_position.
+--nnoremap <silent> ]g    <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+vim.keymap.set('n', ']g', function() vim.diagnostic.get_next() end)
+
 
 -- List all diagnostics in workspace.
 vim.keymap.set('n', '<Leader>dn', function() require('telescope.builtin').diagnostics() end)
@@ -255,6 +265,12 @@ vim.diagnostic.config({
 		header = '',
 		prefix = '',
 	},
+})
+
+-- When cursor lands on a location with an error, automatically open a floating window diagnostic information.
+vim.api.nvim_create_autocmd("CursorHold", {
+	pattern = "*",
+	command = "lua vim.diagnostic.open_float()",
 })
 
 -- Treesitter Plugin Setup
