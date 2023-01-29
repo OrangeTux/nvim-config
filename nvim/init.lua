@@ -288,3 +288,15 @@ require('nvim-treesitter.configs').setup {
 		max_file_lines = nil,
 	}
 }
+
+require("hop").setup()
+vim.keymap.set('n', 'f',
+	function() require('hop').hint_char1({ direction = require 'hop.hint'.HintDirection.AFTER_CURSOR,
+			current_line_only = false })
+	end)
+vim.keymap.set('n', 'F',
+	function() require('hop').hint_char1({ direction = require 'hop.hint'.HintDirection.BEFORE_CURSOR,
+			current_line_only = false })
+	end)
+
+require('impatient')

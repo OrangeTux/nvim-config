@@ -41,5 +41,16 @@ return require('packer').startup(function(use)
 	use 'nvim-treesitter/nvim-treesitter'
 
 	use 'jose-elias-alvarez/null-ls.nvim'
+
+	-- This is just a theme.
 	use 'arcticicestudio/nord-vim'
+
+	-- Plug to (un)comment visual selections easily.
+	use 'preservim/nerdcommenter'
+
+	use {
+		'phaazon/hop.nvim', branch = 'v2'
+	}
+	use 'lewis6991/impatient.nvim'
+	use 'junegunn/vim-easy-align'
 end)
