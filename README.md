@@ -5,7 +5,9 @@ nvim/ contains configuration for nvim. Copy the content of nvim/ to ~/.config.
 Install [packer](https://github.com/wbthomason/packer.nvim). Now, start nvim
 and run `:PackerSync` to install all dependencies..
 
-Next, run `:MasonInstall pyright black lua-language-server`.
+Next, run `:MasonInstall bash-language-server black pyright rust-analyzer`.
+
+Some packages might depend on `npm`. Make sure to install that.
 
 The configuration is tailored to Python and Rust development.
 
@@ -32,5 +34,8 @@ Key combinations | action
 
 ### Screenshots
 
+**Auto-complete in Python.**
 ![auto complete using cmp](nvim/screenshots/auto-complete.png)
+
+**Find symbol in buffer.**
 ![Find symbol](nvim/screenshots/find-symbol-in-buffer.png)
