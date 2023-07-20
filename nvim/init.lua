@@ -108,11 +108,11 @@ vim.keymap.set('n', '<Leader>dn', function() require('telescope.builtin').diagno
 
 -- Format buffer.
 -- Server: DocumentFormattingOptions
-vim.keymap.set('n', '<Leader>b', function() vim.lsp.buf.formatting() end)
+vim.keymap.set('n', '<Leader>b', function() vim.lsp.buf.format({async=true}) end)
 
 -- Format visual select. This key map is untested.
 -- Server: documentRangeFormattingProvider
-vim.keymap.set('v', '<Leader>b', function() vim.lsp.buf.range_formatting() end)
+vim.keymap.set('v', '<Leader>b', function() vim.lsp.buf.format() end)
 
 -- Show code actions in the quick fix window.
 -- Server: codeActionProvider
