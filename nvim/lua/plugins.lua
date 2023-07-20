@@ -53,4 +53,7 @@ return require('packer').startup(function(use)
 	}
 	use 'lewis6991/impatient.nvim'
 	use 'junegunn/vim-easy-align'
+
+	-- Plug to select code and get permalink to Github and other git frontends.
+	use 'ruifm/gitlinker.nvim'
 end)

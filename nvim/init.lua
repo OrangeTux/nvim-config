@@ -301,3 +301,5 @@ vim.keymap.set('n', 'F',
 	end)
 
 require('impatient')
+
+require("gitlinker").setup()
