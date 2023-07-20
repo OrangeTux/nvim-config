@@ -50,8 +50,8 @@ require("mason-lspconfig").setup({
 -- A language server for Python.
 require('lspconfig').pyright.setup {}
 
--- A language server for Lua.
-require('lspconfig').sumneko_lua.setup {}
+-- A language server for Bash. Make sure to install it using :MasonInstall bash-language-server
+require('lspconfig').bashls.setup {}
 
 -- Telescope is a beautiful
 require('telescope').setup()
