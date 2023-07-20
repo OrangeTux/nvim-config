@@ -268,9 +268,10 @@ vim.diagnostic.config({
 })
 
 -- When cursor lands on a location with an error, automatically open a floating window diagnostic information.
+-- focus=false to prevent cursor from focusin on floating window
 vim.api.nvim_create_autocmd("CursorHold", {
 	pattern = "*",
-	command = "lua vim.diagnostic.open_float()",
+	command = "lua vim.diagnostic.open_float(nil, {focus=false})",
 })
 
 -- Treesitter Plugin Setup
