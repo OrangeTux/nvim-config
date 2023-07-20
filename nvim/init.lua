@@ -211,6 +211,9 @@ require("null-ls").setup({
 
 		require("null-ls").builtins.formatting.trim_newlines,
 		require("null-ls").builtins.formatting.trim_whitespace,
+		require("null-ls").builtins.formatting.json_tool,
+		-- Make sure to install shfmt using :MasonInstall shfmt
+		require("null-ls").builtins.formatting.shfmt,
 	},
 })
 
