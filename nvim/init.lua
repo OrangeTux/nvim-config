@@ -73,12 +73,13 @@ require('lspconfig').pyright.setup {
 			config.settings.python.pythonPath = tostring(venv:joinpath("bin", "python"))
 		end
 	end
-
-	
 }
 
 -- A language server for Bash. Make sure to install it using :MasonInstall bash-language-server
 require('lspconfig').bashls.setup {}
+
+-- A language server for Lua. Make sure to install the server :MasonInstall lua-language-server
+require('lspconfig').lua_ls.setup{}
 
 -- Telescope is a beautiful
 require('telescope').setup()
