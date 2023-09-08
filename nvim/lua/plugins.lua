@@ -3,6 +3,7 @@
 -- instructions.
 --
 -- Make sure to run :PackerSync after modifying this file or to update plugins.
+-- Sometimes, I've to run :TSUpdate too to fix any issues caused by updated plugins.
 vim.cmd [[packadd packer.nvim]]
 
 return require('packer').startup(function(use)
@@ -18,7 +19,7 @@ return require('packer').startup(function(use)
 	use "neovim/nvim-lspconfig"
 
 	use {
-		'nvim-telescope/telescope.nvim', tag = '0.1.0',
+		'nvim-telescope/telescope.nvim', tag = '0.1.2',
 		'nvim-lua/plenary.nvim',
 	}
 
