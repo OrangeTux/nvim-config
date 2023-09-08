@@ -48,14 +48,14 @@ require("mason-lspconfig").setup({
 })
 
 -- This configuration depends on lsp-config: https://github.com/neovim/nvim-lspconfig.
--- See :help lspconfig-setup 
+-- See :help lspconfig-setup
 
 -- A language server for Python.
 require('lspconfig').pyright.setup {
 	before_init = function(params, config)
 		-- Configure Pyright to use <project_root>/.venv/bin/python.
 		--
-		-- Pyright isn't aware of virtual environments. This function checks if the 
+		-- Pyright isn't aware of virtual environments. This function checks if the
 		-- project root contains a .venv folder. If so, pyright is configured to
 		-- use the Python interpreter from that virtual environment.
 		-- As result, pyright is aware of all the dependencies in this virtual environment.
@@ -79,7 +79,7 @@ require('lspconfig').pyright.setup {
 require('lspconfig').bashls.setup {}
 
 -- A language server for Lua. Make sure to install the server :MasonInstall lua-language-server
-require('lspconfig').lua_ls.setup{}
+require('lspconfig').lua_ls.setup {}
 
 -- Telescope is a beautiful
 require('telescope').setup()
@@ -136,7 +136,7 @@ vim.keymap.set('n', '<Leader>dn', function() require('telescope.builtin').diagno
 
 -- Format buffer.
 -- Server: DocumentFormattingOptions
-vim.keymap.set('n', '<Leader>b', function() vim.lsp.buf.format({async=true}) end)
+vim.keymap.set('n', '<Leader>b', function() vim.lsp.buf.format({ async = true }) end)
 
 -- Format visual select. This key map is untested.
 -- Server: documentRangeFormattingProvider
@@ -203,14 +203,14 @@ require('cmp').setup({
 	},
 	sources = {
 		-- Autocomplete based on other words in the buffer.
-		{ name = 'buffer', keyword_length = 2 },
+		{ name = 'buffer',                 keyword_length = 2 },
 		{ name = "calc" },
 		-- Provided by ditmel/cmp-vim-lsp
-		{ name = 'nvim_lsp', keyword_lenght = 3 },
+		{ name = 'nvim_lsp',               keyword_lenght = 3 },
 		-- Requires LSP server to implement signatureHelpProvider.
 		{ name = 'nvim_lsp_signature_help' },
 		{ name = "nvim-lua" },
-		{ name = "path", keyword_length = 2 },
+		{ name = "path",                   keyword_length = 2 },
 	},
 	window = {
 		completion = require('cmp').config.window.bordered(),
@@ -320,12 +320,18 @@ require('nvim-treesitter.configs').setup {
 
 require("hop").setup()
 vim.keymap.set('n', 'f',
-	function() require('hop').hint_char1({ direction = require 'hop.hint'.HintDirection.AFTER_CURSOR,
-			current_line_only = false })
+	function()
+		require('hop').hint_char1({
+			direction = require 'hop.hint'.HintDirection.AFTER_CURSOR,
+			current_line_only = false
+		})
 	end)
 vim.keymap.set('n', 'F',
-	function() require('hop').hint_char1({ direction = require 'hop.hint'.HintDirection.BEFORE_CURSOR,
-			current_line_only = false })
+	function()
+		require('hop').hint_char1({
+			direction = require 'hop.hint'.HintDirection.BEFORE_CURSOR,
+			current_line_only = false
+		})
 	end)
 
 require('impatient')
