@@ -47,8 +47,35 @@ require("mason-lspconfig").setup({
 	automatic_installation = true
 })
 
+-- This configuration depends on lsp-config: https://github.com/neovim/nvim-lspconfig.
+-- See :help lspconfig-setup 
+
 -- A language server for Python.
-require('lspconfig').pyright.setup {}
+require('lspconfig').pyright.setup {
+	before_init = function(params, config)
+		-- Configure Pyright to use <project_root>/.venv/bin/python.
+		--
+		-- Pyright isn't aware of virtual environments. This function checks if the 
+		-- project root contains a .venv folder. If so, pyright is configured to
+		-- use the Python interpreter from that virtual environment.
+		-- As result, pyright is aware of all the dependencies in this virtual environment.
+		--
+		-- Poetry can be globally configured to always create virtualenv in the project root.
+		-- To do so, add the following config to ~/.config/pypoetry/config.toml:
+		--
+		-- 	[virtualenvs]
+		-- 	in-project = true
+		--
+		-- The code is taken from https://www.reddit.com/r/neovim/comments/wls43h/pyright_lsp_configuration_for_python_poetry/
+		local Path = require "plenary.path"
+		local venv = Path:new((config.root_dir:gsub("/", Path.path.sep)), ".venv")
+		if venv:joinpath("bin"):is_dir() then
+			config.settings.python.pythonPath = tostring(venv:joinpath("bin", "python"))
+		end
+	end
+
+	
+}
 
 -- A language server for Bash. Make sure to install it using :MasonInstall bash-language-server
 require('lspconfig').bashls.setup {}
