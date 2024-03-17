@@ -344,4 +344,10 @@ vim.keymap.set('n', 'F',
 
 require('impatient')
 
+-- Plugin that generate sharable links to Github or other
+-- git web frontends. I use it often when writing tickets
+-- or discussion code via chat.
+--
+-- Select some code and run `<leader>gy` to generate a URL
+-- that's copied to clipboard.
 require("gitlinker").setup()
