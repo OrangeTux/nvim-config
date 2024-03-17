@@ -21,6 +21,12 @@ vim.cmd [[set noswapfile]]
 -- Enable line numbers.
 vim.opt.number = true
 
+-- Highlight the line with the cursor.
+vim.opt.cursorline = true
+
+-- Always show at least 5 lines before and after cursor.
+vim.opt.scrolloff = 5
+
 -- Mason manages external dependencies, like black, rust-analyzer and language
 -- servers. You've to install them manually. Either call :Mason to open the
 -- interface or run :MasonInstall black.
