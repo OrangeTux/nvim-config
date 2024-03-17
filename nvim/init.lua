@@ -112,11 +112,10 @@ vim.keymap.set('n', 'z=',
 -----
 -- Get the previous diagnostic closest to the cursor_position.
 --nnoremap <silent> [g    <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
-vim.keymap.set('n', '[g', function() vim.diagnostic.get_prev() end)
+vim.keymap.set('n', '[g', function() vim.diagnostic.goto_prev() end)
 -- Get the next diagnostic closest to the cursor_position.
 --nnoremap <silent> ]g    <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
-vim.keymap.set('n', ']g', function() vim.diagnostic.get_next() end)
-
+vim.keymap.set('n', ']g', function() vim.diagnostic.goto_next() end)
 
 -- List all diagnostics in workspace.
 vim.keymap.set('n', '<Leader>dn', function() require('telescope.builtin').diagnostics() end)
