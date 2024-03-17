@@ -99,6 +99,9 @@ require('telescope').setup()
 vim.keymap.set('n', '<Leader>ff', function() require('telescope.builtin').find_files() end)
 
 -- Search for string in workspace.
+vim.keymap.set('n', '<Leader>ic', function() require('telescope.builtin').lsp_incoming_calls() end)
+
+-- Search for string in workspace.
 vim.keymap.set('n', '<Leader>fg', function() require('telescope.builtin').live_grep() end)
 
 vim.keymap.set('n', 'z=',
