@@ -87,6 +87,20 @@ require('lspconfig').bashls.setup {}
 -- A language server for Lua. Make sure to install the server :MasonInstall lua-language-server
 require('lspconfig').lua_ls.setup {}
 
+-- A language server for . Make sure to install the server :MasonInstall typescript-language-server
+require 'lspconfig'.tsserver.setup {}
+
+require 'lspconfig'.gopls.setup {}
+
+--local cmp_nvim_lsp = require "cmp_nvim_lsp"
+--require 'lspconfig'.clangd.setup {
+	--capabilities = cmp_nvim_lsp.default_capabilities(),
+	--cmd = {
+		--"clangd",
+		--"--offset-encoding=utf-16",
+	--},
+--}
+
 -- Telescope is a beautiful
 require('telescope').setup()
 
@@ -98,8 +112,11 @@ require('telescope').setup()
 -- Find file in workspace.
 vim.keymap.set('n', '<Leader>ff', function() require('telescope.builtin').find_files() end)
 
--- Search for string in workspace.
+-- Find incoming calls to identifier under cursor.
 vim.keymap.set('n', '<Leader>ic', function() require('telescope.builtin').lsp_incoming_calls() end)
+
+-- Search for references to identifier under cursor.
+vim.keymap.set('n', '<Leader>rc', function() require('telescope.builtin').lsp_references() end)
 
 -- Search for string in workspace.
 vim.keymap.set('n', '<Leader>fg', function() require('telescope.builtin').live_grep() end)
@@ -107,6 +124,7 @@ vim.keymap.set('n', '<Leader>fg', function() require('telescope.builtin').live_g
 vim.keymap.set('n', 'z=',
 	function() require('telescope.builtin').spell_suggest(require('telescope.themes').get_cursor({})) end)
 
+vim.keymap.set('n', '<Leader>fb', function() require('telescope.builtin').buffers() end)
 ------
 -- Diagnostics
 -----
@@ -351,3 +369,96 @@ require('impatient')
 -- Select some code and run `<leader>gy` to generate a URL
 -- that's copied to clipboard.
 require("gitlinker").setup()
+
+-- Make files requires tabs instead spaces.
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "make" },
+	command = "setlocal tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab"
+})
+
+--require("toggleterm").setup({
+--open_mapping = [[<Leader>t]],
+--direction = "float",
+--})
+
+
+-- Configur dap-ui.
+require('dapui').setup()
+
+-- Install listeners to automatically open and close dapui when a debugger is starts or terminates.
+-- See https://github.com/rcarriga/nvim-dap-ui?tab=readme-ov-file#usage
+require('dap').listeners.after.event_initialized["dapui_config"] = function()
+	require('dapui').open()
+end
+-- CodeLLDB is a debugger for Rust. Install it using Mason.
+
+--Find path to codelldb binary.
+local codelldb                                                   = require('mason-registry').get_package("codelldb")
+codelldb                                                         = codelldb:get_install_path() ..
+    '/extension/adapter/codelldb'
+
+-- Configure the CodeLLDB adapter for DAP. A lot of examples name this adapter 'lldb'.
+-- Make sure to use 'codelldb' instead, otherwise plugin neotest-rust doesn't work.
+require("dap").adapters.codelldb                                 = {
+	-- Start the codelldb server.
+	type = "server",
+	port = "${port}",
+	executable = {
+		command = codelldb,
+		args = { "--port", "${port}" },
+	},
+}
+
+-- Configure DAP for Rust projects.
+require('dap').configurations.rust                               = {
+	{
+		name = "Launch codelldb",
+		type = "codelldb",
+		request = "launch",
+		-- TODO: Select the right binary by default
+		program = function()
+			vim.print("${workspaceFolder}")
+			return vim.fn.input(
+				"Path to executable: ",
+				vim.fn.getcwd() .. "/target/debug",
+				"file"
+			)
+		end,
+		cwd = "${workspaceFolder}",
+		stopOnEntry = false,
+		args = {},
+		runInTerminal = false,
+	}
+}
+
+-- Configure neotest. I use it primarily to debug tests with CodeLLDB.
+require("neotest").setup({
+	adapters = {
+		require("neotest-rust")
+	}
+})
+
+-- See :help dap
+-- Toggle a breakpoint.
+vim.keymap.set('n', '<Leader>db', function() require('dap').toggle_breakpoint() end)
+
+-- Start debugging a binary.
+vim.keymap.set('n', '<Leader>ds', function() require('dap').continue() end)
+
+-- Start debug the nearest test.
+vim.keymap.set('n', '<Leader>dt', function() require("neotest").run.run({ strategy = "dap" }) end)
+
+-- Terminate the debugger.
+vim.keymap.set('n', '<Leader>dx', function() require('dap').terminate() end)
+
+-- Toggle nvim-dap-ui.
+vim.keymap.set('n', '<Leader>du', function() require('dapui').toggle() end)
+
+--require('gitsigns').setup()
+require("treesitter-context").setup()
+
+vim.keymap.set("n", "<leader>o", "<cmd>Portal jumplist backward<cr>")
+vim.keymap.set("n", "<leader>i", "<cmd>Portal jumplist forward<cr>")
+
+-- Open doc.rs for symbol under cursor.
+vim.keymap.set("n", "<leader>ed", "<cmd>RustOpenExternalDocs<cr>")

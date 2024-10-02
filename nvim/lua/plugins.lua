@@ -57,4 +57,18 @@ return require('packer').startup(function(use)
 
 	-- Plug to select code and get permalink to Github and other git frontends.
 	use 'ruifm/gitlinker.nvim'
+	use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } }
+
+	use {
+		"nvim-neotest/neotest",
+		requires = {
+			"antoinemadec/FixCursorHold.nvim",
+			'rouge8/neotest-rust',
+		}
+	}
+
+	use 'lewis6991/gitsigns.nvim'
+	use 'nvim-treesitter/nvim-treesitter-context'
+	use 'cbochs/portal.nvim'
+
 end)
